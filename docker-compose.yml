@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  php:
+    build:
+      context: php
+      dockerfile: .docker/Dockerfile
+    image: php:latest
+    container_name: php
+    working_dir: /app
+    ports:
+      - 9000:9000
+#  volumes:
+#      - ./php:/app 
