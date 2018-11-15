@@ -1,5 +1,16 @@
 version: '3.3'
 services:
+  nginx:
+    build:
+      context: nginx
+      dockerfile: .docker/Dockerfile
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - 8080:80
+#    volumes:
+#      - ./php:/app
+
   php:
     build:
       context: php
@@ -9,5 +20,5 @@ services:
     working_dir: /app
     ports:
       - 9000:9000
-#  volumes:
-#      - ./php:/app 
+    volumes:
+      - ./php:/app
