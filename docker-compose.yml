@@ -12,8 +12,9 @@ services:
     depends_on:
       - php
       - nodejs
+      - postgres
     networks:
-    - app-network
+    - internal-network
 
   php:
     build:
@@ -27,7 +28,7 @@ services:
     ports:
     - 9000:9000
     networks:
-    - app-network
+    - internal-network
 
   nodejs:
     build:
@@ -42,7 +43,7 @@ services:
     ports:
       - 3000:3000
     networks:
-    - app-network
+    - internal-network
 
   postgres:
     build:
@@ -60,7 +61,13 @@ services:
     - ./postgres/data:${POSTGRES_PGDATA}
     ports:
     - 5432:5432
+    networks:
+    - internal-network
+    - external-network
 
 networks:
-  app-network:
+  internal-network:
     driver: bridge
+    internal: true
+  external-network:
+    external: true
