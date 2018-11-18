@@ -4,22 +4,45 @@ services:
     build:
       context: nginx
       dockerfile: .docker/Dockerfile
-    image: nginx:latest
-    container_name: nginx
+    image: ${NGINX_IMAGE}
+    container_name: ${NGINX_CONTAINER}
     ports:
       - 80:80
 #      - 443:443 # HTTPS
-#    volumes:
-#      - ./php:/app
+    depends_on:
+      - php
+      - nodejs
+    networks:
+    - app-network
 
   php:
     build:
       context: php
       dockerfile: .docker/Dockerfile
-    image: php:latest
-    container_name: php
+    image: ${PHP_IMAGE}
+    container_name: ${PHP_CONTAINER}
     working_dir: /app
-    ports:
-      - 9000:9000
     volumes:
-      - ./php:/app
+    - ./php:/app
+    ports:
+    - 9000:9000
+    networks:
+    - app-network
+
+  nodejs:
+    build:
+      context: nodejs
+      dockerfile: .docker/Dockerfile
+    image: ${NODEJS_IMAGE}
+    container_name: ${NODEJS_CONTAINER}
+    working_dir: /app
+#    volumes:
+#    - ./nodejs:/app
+    ports:
+      - 3000:3000
+    networks:
+    - app-network
+
+networks:
+  app-network:
+    driver: bridge
