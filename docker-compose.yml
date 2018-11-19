@@ -12,9 +12,8 @@ services:
     depends_on:
       - php
       - nodejs
-      - postgres
     networks:
-    - internal-network
+    - devops_network
 
   php:
     build:
@@ -28,7 +27,7 @@ services:
     ports:
     - 9000:9000
     networks:
-    - internal-network
+    - devops_network
 
   nodejs:
     build:
@@ -43,7 +42,7 @@ services:
     ports:
       - 3000:3000
     networks:
-    - internal-network
+    - devops_network
 
   postgres:
     build:
@@ -62,12 +61,11 @@ services:
     ports:
     - 5432:5432
     networks:
-    - internal-network
+    - devops_network
     - external-network
 
 networks:
-  internal-network:
+  devops_network:
     driver: bridge
-    internal: true
   external-network:
     external: true
