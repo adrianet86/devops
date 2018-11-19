@@ -22,8 +22,8 @@ services:
     image: ${PHP_IMAGE}
     container_name: ${PHP_CONTAINER}
     working_dir: /app
-#    volumes:
-#    - ./php/src:/app
+    volumes:
+    - ./php/src:/app
     ports:
     - 9000:9000
     networks:
