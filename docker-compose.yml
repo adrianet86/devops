@@ -6,6 +6,7 @@ services:
       dockerfile: .docker/Dockerfile
     image: ${NGINX_IMAGE}
     container_name: ${NGINX_CONTAINER}
+#    restart: always
     ports:
       - 80:80
 #      - 443:443 # HTTPS
@@ -21,6 +22,7 @@ services:
       dockerfile: .docker/Dockerfile
     image: ${PHP_IMAGE}
     container_name: ${PHP_CONTAINER}
+#    restart: always
     working_dir: /app
     volumes:
     - ./php/src:/app
@@ -35,7 +37,7 @@ services:
       dockerfile: .docker/Dockerfile
     image: ${NODEJS_IMAGE}
     container_name: ${NODEJS_CONTAINER}
-    restart: always
+#    restart: always
     working_dir: /app
 #    volumes:
 #    - ./nodejs/src:/app
@@ -50,7 +52,7 @@ services:
       dockerfile: .docker/Dockerfile
     image: ${POSTGRES_IMAGE}
     container_name: ${POSTGRES_CONTAINER}
-    restart: always
+#    restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -63,6 +65,23 @@ services:
     networks:
     - devops_network
     - external-network
+  rabbitmq:
+    build:
+      context: rabbitmq
+      dockerfile: .docker/Dockerfile
+    image: ${RABBITMQ_IMAGE}
+    container_name: ${RABBITMQ_CONTAINER}
+#    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+#    volumes:
+#    - ./rabbitmq/data:${RABBITMQ_DATA}
+    ports:
+    - 5672:5672
+    - 15672:15672
+    networks:
+      - devops_network
 
 networks:
   devops_network:
