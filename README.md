@@ -1,7 +1,7 @@
 # DEVOPS (docker)
 
 Main goal of this project is to practise with docker and services for learning and fun.
-However it could be useful to create a structure/skeleton to start projects with this services, 
+However it could be useful to create a structure/skeleton to start projects with this services,
 On the other hand, other projects like [laradock](http://laradock.io/) are much more better, with more
 services and better documentation.
 
@@ -13,18 +13,18 @@ services and better documentation.
         /data*
         .gitignore
         README.md
-    
+
     /service2
         /.docker
         /src
         .gitignore
-    
-    ...
-    
-    * optional 
-    
 
-Basically each service has two folders, **.docker** where is placed the *Dockerfile* and **src** with 
+    ...
+
+    * optional
+
+
+Basically each service has two folders, **.docker** where is placed the *Dockerfile* and **src** with
 the code of the application. In some services a **data** folder to store the database info.
 
 Important is *.gitignore* file, here it is specified to ignore all files inside **src** folder except
@@ -34,7 +34,7 @@ The goal would be to to clone inside **src** other repository and make it work p
 Finally a *README* with specific information if is needed (thanks if its not empty).  
 
 
-### Current services 
+### Current services
 * **Nginx** as a web server.
 * **Php** for backend operations through a Restful API.
 * **Nodejs** for frontend.
@@ -55,12 +55,8 @@ Finally a *README* with specific information if is needed (thanks if its not emp
 ### Ideas
 * Upstream in Nginx to balance two identical services.
 * Docker swarm.
- 
-### Start
 
-    mkdir postgres/data
-    
+### Start  
     docker network create external-network
-    
-    docker-compose up --build -d
 
+    docker-compose up --build -d
